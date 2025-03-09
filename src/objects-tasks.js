@@ -120,8 +120,13 @@ function makeImmutable(obj) {
  *    makeWord({ H:[0], e: [1], l: [2, 3, 8], o: [4, 6], W:[5], r:[7], d:[9]}) => 'HelloWorld'
  */
 function makeWord(lettersObject) {
-  return Object.getOwnPropertySymbols(lettersObject);
-  // throw new Error('Not implemented');
+  const arr = [];
+  Object.entries(lettersObject).forEach(([key, value]) => {
+    value.forEach((el) => {
+      arr[el] = key;
+    });
+  });
+  return arr.join('');
 }
 
 /**
