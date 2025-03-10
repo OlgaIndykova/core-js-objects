@@ -58,7 +58,7 @@ function mergeObjects(objects) {
  *
  */
 function removeProperties(obj, keys) {
-  const newObj = { ...obj };
+  const newObj = obj;
   keys.forEach((el) => {
     delete newObj[el];
   });
@@ -201,10 +201,10 @@ function getJSON(obj) {
  *    const r = fromJSON(Circle.prototype, '{"radius":10}');
  *
  */
-function fromJSON(/* proto, json */) {
-  // const newObj = JSON.parse(proto, json);
-  // return newObj;
-  throw new Error('Not implemented');
+function fromJSON(proto, json) {
+  const newObj = JSON.parse(json);
+  return Object.setPrototypeOf(newObj, proto);
+  // throw new Error('Not implemented');
 }
 
 /**
@@ -233,8 +233,14 @@ function fromJSON(/* proto, json */) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  return arr.sort((a, b) => {
+    const result = a.country.localeCompare(b.country);
+    if (result === 0) {
+      return a.city.localeCompare(b.city);
+    }
+    return a.country.localeCompare(b.country);
+  });
 }
 
 /**
